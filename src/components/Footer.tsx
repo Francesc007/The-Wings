@@ -26,7 +26,7 @@ export function Footer() {
               </div>
               <p className="font-heading text-center leading-snug max-w-[18rem] space-y-1">
                 <span className="block text-white/85 text-xs sm:text-sm uppercase tracking-[0.18em]">
-                  Sports bar · alitas de escuadrón
+                  Alitas de escuadrón
                 </span>
                 <span className="block text-[#f5c542] text-sm md:text-base tracking-wide">
                   Tepeji del Río

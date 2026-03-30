@@ -187,12 +187,9 @@ export function Menu() {
           <p className="font-heading text-[#f5c542] uppercase tracking-[0.3em] text-sm mb-3">
             Menú táctico
           </p>
-          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase mb-4">
-            Arsenal gastronómico
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase">
+            Arsenal de salsas
           </h2>
-          <p className="text-white/80 max-w-2xl mx-auto text-base md:text-lg">
-            Precios demo para presentación — estructura lista para escalar a 8 sucursales.
-          </p>
         </motion.div>
 
         <div className="space-y-20 md:space-y-28">

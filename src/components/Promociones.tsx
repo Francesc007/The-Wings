@@ -6,14 +6,12 @@ const operaciones = [
   {
     titulo: 'Misión cumpleaños',
     descripcion: 'Postre de cortesía y shout-out en pantalla. Grupos 6+ — consulta condiciones en sucursal.',
-    borde: 'border-[#d4a017]',
     imagenes: [...fileVariantsPublic('cumple'), REMOTE_WINGS_PLACEHOLDER],
     posicionImagen: '',
   },
   {
     titulo: 'Happy hour',
     descripcion: '2x1 en bebidas seleccionadas y tarros destacados en horario promocional.',
-    borde: 'border-[#8b0000]',
     imagenes: [...fileVariantsPublic('2x1'), REMOTE_WINGS_PLACEHOLDER],
     /** Encuadre más abajo para que el motivo principal se vea mejor */
     posicionImagen: 'object-[center_75%] sm:object-[center_70%]',
@@ -21,7 +19,6 @@ const operaciones = [
   {
     titulo: 'Fin de semana',
     descripcion: 'Combos alitas + bebida + snack. Viernes a domingo en ventana extendida.',
-    borde: 'border-[#f5c542]',
     imagenes: [
       ...fileVariantsPublic('buffet1'),
       ...fileVariantsPublic('beffet1'),
@@ -75,7 +72,7 @@ export function Promociones() {
                 y: -4,
                 transition: { type: 'tween', duration: 0.05, ease: 'linear' },
               }}
-              className={`group bg-gradient-to-b from-[#2a1214] to-[#1a080a] rounded-2xl overflow-hidden border-2 ${op.borde} shadow-[0_24px_48px_rgba(0,0,0,0.55)] transition-[border-color,box-shadow] duration-0 hover:z-10 hover:border-[#f5c542] hover:shadow-[0_0_28px_rgba(245,197,66,0.38),0_20px_44px_rgba(0,0,0,0.55)]`}
+              className="group bg-gradient-to-b from-[#2a1214] to-[#1a080a] rounded-2xl overflow-hidden border-2 border-[#991b1b]/95 shadow-[0_24px_48px_rgba(0,0,0,0.55)] transition-[border-color,box-shadow] duration-0 hover:z-10 hover:border-[#f5c542]/80 hover:shadow-[0_0_32px_rgba(245,197,66,0.55),0_0_48px_rgba(245,197,66,0.22),0_24px_48px_-8px_rgba(212,160,23,0.25)]"
             >
               <div className="relative h-60 sm:h-64 overflow-hidden">
                 <ImageWithFallback
