@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { CONFIG } from '../config'
@@ -8,23 +8,27 @@ interface ReservationModalProps {
   onClose: () => void
 }
 
-// Horarios: Viernes a Domingo 17:00 - 00:00 h
-const HORAS = [
-  '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30',
-  '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00',
-]
+/** Ranuras de 30 min desde inicio hasta fin (inclusive). Vie/Sáb incluyen 00:00. */
+function horasParaFecha(fecha: Date): string[] {
+  const d = fecha.getDay()
+  const esVieSab = d === 5 || d === 6
+  const slots: string[] = []
+  for (let h = 13; h <= 23; h++) {
+    slots.push(`${h.toString().padStart(2, '0')}:00`)
+    if (h < 23) slots.push(`${h.toString().padStart(2, '0')}:30`)
+  }
+  if (esVieSab) slots.push('00:00')
+  return slots
+}
 
-function getNextOpenDays(count: number) {
+function getNextDays(count: number) {
   const days: Date[] = []
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-  let d = new Date(today)
-  while (days.length < count) {
-    const dayOfWeek = d.getDay()
-    if (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) {
-      days.push(new Date(d))
-    }
-    d.setDate(d.getDate() + 1)
+  for (let i = 0; i < count; i++) {
+    const d = new Date(today)
+    d.setDate(today.getDate() + i)
+    days.push(d)
   }
   return days
 }
@@ -38,7 +42,8 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
   const [hora, setHora] = useState('')
   const [personas, setPersonas] = useState('2')
 
-  const dias = getNextOpenDays(21)
+  const dias = useMemo(() => getNextDays(21), [])
+  const horasDisponibles = useMemo(() => (fecha ? horasParaFecha(fecha) : []), [fecha])
 
   const handleConfirmar = () => {
     if (!fecha || !hora) return
@@ -47,7 +52,7 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
     const year = fecha.getFullYear()
     const fechaStr = `${day}/${month}/${year}`
     const mensaje = encodeURIComponent(
-      `Hola El Cactus ${CONFIG.cactusEmoji}, me gustaría reservar para el día ${fechaStr} a las ${hora} h, para ${personas} personas.`
+      `Hola ${CONFIG.brandName}, solicito reserva para el ${fechaStr} a las ${hora} h, ${personas} personas.`
     )
     window.open(`https://api.whatsapp.com/send?phone=${CONFIG.whatsappNumber}&text=${mensaje}`, '_blank')
     onClose()
@@ -62,38 +67,50 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/70 z-50 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/80 z-[60] backdrop-blur-sm"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md max-h-[90vh] overflow-y-auto bg-[#1a1a1a] rounded-2xl border-2 border-[#4CAF50] shadow-2xl p-6 mx-4"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[61] w-full max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-b from-[#1a0808] to-[#0a0505] rounded-2xl border-2 border-[#d4a017]/50 shadow-2xl p-6 mx-4"
           >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-display text-2xl font-bold text-[#FFEB3B]">
-                Reservar Mesa
+              <h3 className="font-heading text-2xl uppercase text-[#f5c542] tracking-wide">
+                Reservar mesa
               </h3>
               <button
+                type="button"
                 onClick={onClose}
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                aria-label="Cerrar"
               >
-                <X size={24} className="text-gray-400" />
+                <X size={24} className="text-white/60" aria-hidden />
               </button>
             </div>
 
+            <p className="text-white/55 text-sm mb-6">
+              Horario de operación: {CONFIG.horarios.compacto}
+            </p>
+
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Fecha</label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
+                <label className="block text-sm font-medium text-white/50 mb-2 uppercase tracking-wide">
+                  Fecha
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-40 overflow-y-auto pr-1">
                   {dias.map((d) => (
                     <button
+                      type="button"
                       key={d.toISOString()}
-                      onClick={() => setFecha(d)}
-                      className={`py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+                      onClick={() => {
+                        setFecha(d)
+                        setHora('')
+                      }}
+                      className={`py-2 px-3 rounded-xl text-sm font-semibold transition-all ${
                         fecha?.toDateString() === d.toDateString()
-                          ? 'bg-[#4CAF50] text-white'
-                          : 'bg-[#2a2520] text-gray-300 hover:bg-[#3a3530]'
+                          ? 'bg-gradient-to-r from-[#d4a017] to-[#b8860b] text-[#1a0505]'
+                          : 'bg-[#2a1515] text-white/85 hover:bg-[#3a2020]'
                       }`}
                     >
                       {formatDate(d)}
@@ -103,16 +120,19 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Hora</label>
-                <div className="grid grid-cols-4 gap-2 max-h-32 overflow-y-auto">
-                  {HORAS.map((h) => (
+                <label className="block text-sm font-medium text-white/50 mb-2 uppercase tracking-wide">
+                  Hora
+                </label>
+                <div className="grid grid-cols-4 gap-2 max-h-36 overflow-y-auto">
+                  {horasDisponibles.map((h) => (
                     <button
+                      type="button"
                       key={h}
                       onClick={() => setHora(h)}
-                      className={`py-2 rounded-lg text-sm font-medium transition-all ${
+                      className={`py-2 rounded-xl text-sm font-semibold transition-all ${
                         hora === h
-                          ? 'bg-[#FF9800] text-[#1a1a1a]'
-                          : 'bg-[#2a2520] text-gray-300 hover:bg-[#3a3530]'
+                          ? 'bg-[#8b0000] text-white border border-[#d4a017]/40'
+                          : 'bg-[#2a1515] text-white/85 hover:bg-[#3a2020]'
                       }`}
                     >
                       {h}
@@ -122,14 +142,23 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Personas</label>
+                <label
+                  htmlFor="reserva-personas"
+                  className="block text-sm font-medium text-white/50 mb-2 uppercase tracking-wide"
+                >
+                  Personas
+                </label>
                 <select
+                  id="reserva-personas"
                   value={personas}
                   onChange={(e) => setPersonas(e.target.value)}
-                  className="w-full py-3 px-4 bg-[#2a2520] border border-[#4CAF50]/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#4CAF50]"
+                  className="w-full py-3 px-4 bg-[#2a1515] border border-[#d4a017]/25 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#d4a017]/50"
+                  aria-label="Número de personas"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                    <option key={n} value={n}>{n} {n === 1 ? 'persona' : 'personas'}</option>
+                    <option key={n} value={n}>
+                      {n} {n === 1 ? 'persona' : 'personas'}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -137,15 +166,17 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
 
             <div className="mt-8 flex gap-4">
               <button
+                type="button"
                 onClick={onClose}
-                className="flex-1 py-3 rounded-lg border border-gray-500 text-gray-400 hover:bg-white/5 transition-colors"
+                className="flex-1 py-3 rounded-xl border border-white/20 text-white/70 hover:bg-white/5 transition-colors font-semibold"
               >
                 Cancelar
               </button>
               <button
+                type="button"
                 onClick={handleConfirmar}
                 disabled={!fecha || !hora}
-                className="flex-1 py-3 rounded-lg bg-[#4CAF50] hover:bg-[#45a049] text-white font-bold disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#d4a017] to-[#b8860b] text-[#1a0505] font-heading uppercase tracking-wide disabled:opacity-45 disabled:cursor-not-allowed transition-all"
               >
                 Ir a WhatsApp
               </button>

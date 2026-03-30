@@ -1,8 +1,10 @@
-# El Cactus Antojería - Landing Page
+# The Wings Tepeji — Landing
 
-Landing page de alto impacto para El Cactus Antojería, restaurante de comida mexicana tradicional en Tepeji del Río.
+Landing page para **The Wings Tepeji**, sports bar y alitas en Tepeji del Río, Hidalgo.
 
-## 🚀 Inicio Rápido
+Repositorio: [github.com/Francesc007/The-Wings](https://github.com/Francesc007/The-Wings)
+
+## Inicio rápido
 
 ```bash
 npm install
@@ -11,29 +13,27 @@ npm run dev
 
 Abre [http://localhost:5173](http://localhost:5173) en tu navegador.
 
-## 📋 Configuración
+## Configuración
 
 Edita `src/config.ts` para personalizar:
 
-- **whatsappNumber**: Número de WhatsApp con código de país (ej: `527711234567`)
-- **googleMapsUrl**: Enlace directo a Google Maps del restaurante
-- **horarios**: Horarios de atención
+- **whatsappNumber**: número de WhatsApp con código de país (ej: `527711234567`)
+- **googleMapsUrl**: enlace a Google Maps
+- **horarios**: horarios de atención
 
-## 🖼️ Logo
+## Logo
 
-Para usar tu logo oficial:
-1. Coloca `logo.png` en la carpeta `public/`
-2. En `src/components/Navbar.tsx`, cambia `src="/logo.svg"` por `src="/logo.png"`
+Coloca el logo en `public/` (por ejemplo `Logo Wings.png`) y referencia la ruta en los componentes que lo usen.
 
-## 📦 Build para Producción
+## Build para producción
 
 ```bash
 npm run build
 ```
 
-Los archivos se generan en la carpeta `dist/`.
+Salida en la carpeta `dist/` (compatible con Vercel u otro hosting estático).
 
-## 🛠️ Tecnologías
+## Tecnologías
 
 - React + TypeScript
 - Vite

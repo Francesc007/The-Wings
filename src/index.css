@@ -1,30 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  --verde-cactus: #4CAF50;
-  --naranja-atardecer: #FF9800;
-  --amarillo-maiz: #FFEB3B;
-  --negro-mate: #1a1a1a;
-  --terracota-oscuro: #8B4513;
-  --terracota-claro: #A0522D;
+  --wings-red: #b91c1c;
+  --wings-red-deep: #7f1518;
+  --wings-red-bright: #dc2626;
+  --wings-gold: #d4a017;
+  --wings-gold-bright: #f5c542;
+  --wings-ink: #3a1012;
+  --font-heading: "Anton", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo Black", ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(180deg, #5c181c 0%, #4a1418 30%, #3a1014 60%, #2e0c10 100%);
+  background-color: #3a1214;
+  color: #fafafa;
 }
 
-.font-display {
-  font-family: 'Playfair Display', serif;
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: 0.02em;
+}
+
+.font-display-heavy {
+  font-family: var(--font-display);
+}
+
+/* Textura de chispas / ruido sutil sobre rojos */
+.wings-fire-texture {
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(245, 197, 66, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 20% 30%, rgba(248, 80, 70, 0.28) 0%, transparent 42%),
+    radial-gradient(circle at 80% 70%, rgba(220, 50, 50, 0.24) 0%, transparent 48%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
 }
 
 @keyframes whatsapp-pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  50% { transform: scale(1.02); box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 197, 66, 0.55);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 14px rgba(245, 197, 66, 0);
+  }
 }
 
 .animate-whatsapp-pulse {
   animation: whatsapp-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ember-float {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+.animate-ember {
+  animation: ember-float 4s ease-in-out infinite;
 }

@@ -6,6 +6,7 @@ import { Promociones } from './components/Promociones'
 import { Footer } from './components/Footer'
 import { ReservationModal } from './components/ReservationModal'
 import { WhatsAppButton } from './components/WhatsAppButton'
+import { MobileActionBar } from './components/MobileActionBar'
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false)
@@ -19,6 +20,7 @@ function App() {
       <Footer />
       <ReservationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <WhatsAppButton />
+      <MobileActionBar />
     </>
   )
 }
