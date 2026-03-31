@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
+import { CONFIG } from '../config'
 import { ImageWithFallback } from './ImageWithFallback'
+import { AmbientParticles } from './AmbientParticles'
 import { fileVariantsPublic, REMOTE_WINGS_PLACEHOLDER } from '../utils/publicImage'
 
 const operaciones = [
@@ -33,11 +35,13 @@ export function Promociones() {
   return (
     <section
       id="operaciones"
-      className="relative py-20 md:py-28 bg-[#4a181c] overflow-hidden border-y border-[#b91c1c]/45"
+      className="relative py-20 md:py-28 bg-[#4e141a] overflow-hidden border-y border-[#b91c1c]/45"
     >
       <div className="absolute inset-0 opacity-[0.07] wings-fire-texture pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 relative">
+      {CONFIG.ambientEmbers && <AmbientParticles embedded />}
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

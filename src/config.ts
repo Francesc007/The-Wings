@@ -13,6 +13,8 @@ export const CONFIG = {
     'https://www.google.com/maps/place/The+Wings+Tepeji/@19.906148,-99.3404752,21z/data=!4m6!3m5!1s0x85d22f002a92af5d:0x8d672a10292d18c8!8m2!3d19.9061727!4d-99.3405486!16s%2Fg%2F11vysp4621?entry=ttu',
   facebookUrl: 'https://www.facebook.com/profile.php?id=61553274571933',
   instagramUrl: 'https://www.instagram.com/thewings.tepeji/',
+  /** Brasas animadas (Hero, menú, operaciones). false = desactivar */
+  ambientEmbers: true,
   /** Horarios oficiales */
   horarios: {
     linea1: 'Dom — Jue: 13:00 — 23:00 h',

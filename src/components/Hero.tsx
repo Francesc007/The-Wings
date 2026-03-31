@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
+import { CONFIG } from '../config'
 import { IMG } from '../constants/images'
 import { ImageWithFallback } from './ImageWithFallback'
+import { AmbientParticles } from './AmbientParticles'
 
 export function Hero({ onReservarClick }: { onReservarClick: () => void }) {
   return (
@@ -14,10 +16,12 @@ export function Hero({ onReservarClick }: { onReservarClick: () => void }) {
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
         fetchPriority="high"
-        emptyClassName="absolute inset-0 bg-gradient-to-b from-[#991b1b] via-[#7f1518] to-[#2a0c10]"
+        emptyClassName="absolute inset-0 bg-gradient-to-b from-[#991b1b] via-[#7f1518] to-[#2e080c]"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-[#b91c1c]/10 to-[#991b1b]/40" />
       <div className="absolute inset-0 wings-fire-texture opacity-60 animate-ember pointer-events-none" />
+
+      {CONFIG.ambientEmbers && <AmbientParticles embedded />}
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 text-center pt-28 pb-16 md:pb-24">
         <motion.p

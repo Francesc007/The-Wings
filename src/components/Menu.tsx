@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { Crosshair } from 'lucide-react'
 import { IMG } from '../constants/images'
 import { CONFIG } from '../config'
+import { AmbientParticles } from './AmbientParticles'
 import { ImageWithFallback } from './ImageWithFallback'
 
 /** Hamburguesas: placeholders hasta que subas assets propios */
@@ -175,9 +176,10 @@ export function Menu() {
   return (
     <section
       id="menu"
-      className="relative py-20 md:py-28 bg-gradient-to-b from-[#3a1014] via-[#7f1d1d] to-[#4a1418] wings-fire-texture"
+      className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-[#3e0e14] via-[#861a1e] to-[#4e141a] wings-fire-texture"
     >
-      <div className="max-w-7xl mx-auto px-4">
+      {CONFIG.ambientEmbers && <AmbientParticles embedded />}
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

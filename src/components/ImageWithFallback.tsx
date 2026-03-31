@@ -33,7 +33,7 @@ export function ImageWithFallback({
   if (idx >= sources.length) {
     return (
       <div
-        className={emptyClassName ?? `${className} bg-gradient-to-br from-[#7f1d1d] to-[#3a1014]`}
+        className={emptyClassName ?? `${className} bg-gradient-to-br from-[#861a1e] to-[#3e0e14]`}
         aria-hidden
       />
     )

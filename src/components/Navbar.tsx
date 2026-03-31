@@ -29,7 +29,7 @@ export function Navbar({ onReservarClick }: NavbarProps) {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300 ${
         isScrolled
-          ? 'bg-[#4a181c]/95 border-[#d4a017]/30 shadow-[0_8px_32px_rgba(185,28,28,0.45)]'
+          ? 'bg-[#4e141a]/95 border-[#d4a017]/30 shadow-[0_8px_32px_rgba(185,28,28,0.45)]'
           : 'bg-gradient-to-b from-[#6b1f24]/75 to-transparent border-transparent'
       }`}
     >

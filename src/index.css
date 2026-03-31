@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
+html {
+  background-color: #2c0609;
+}
+
 :root {
   --wings-red: #b91c1c;
   --wings-red-deep: #7f1518;
   --wings-red-bright: #dc2626;
   --wings-gold: #d4a017;
   --wings-gold-bright: #f5c542;
-  --wings-ink: #3a1012;
+  --wings-ink: #3e0e12;
   --font-heading: "Anton", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Archivo Black", ui-sans-serif, system-ui, sans-serif;
 }
@@ -16,9 +20,43 @@ body {
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(180deg, #5c181c 0%, #4a1418 30%, #3a1014 60%, #2e0c10 100%);
-  background-color: #3a1214;
+  background: transparent;
   color: #fafafa;
+}
+
+/* Papel tapiz: logos repetidos + velo rojo (estampado, no plano) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/Logo%20Wings.png");
+  background-repeat: repeat;
+  background-size: 104px auto;
+  opacity: 0.11;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(88, 18, 22, 0.93) 0%,
+    rgba(64, 12, 16, 0.94) 35%,
+    rgba(48, 8, 12, 0.96) 70%,
+    rgba(34, 6, 9, 0.97) 100%
+  );
+  pointer-events: none;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  background: transparent;
 }
 
 .font-heading {
@@ -67,4 +105,58 @@ body {
 
 .animate-ember {
   animation: ember-float 4s ease-in-out infinite;
+}
+
+/* Brasas (CONFIG.ambientEmbers): subida + deriva */
+@keyframes ember-rise {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(var(--ember-drift, 0px)) scale(0.35);
+    opacity: 0;
+  }
+}
+
+/* Ondulación horizontal + giro suave (viento) */
+@keyframes ember-wind {
+  0% {
+    transform: translateX(calc(-1 * var(--sway, 14px))) rotate(calc(-1 * var(--ember-twist, 12deg)));
+  }
+  16% {
+    transform: translateX(calc(var(--sway, 14px) * 0.55)) rotate(calc(var(--ember-twist, 12deg) * 0.45));
+  }
+  33% {
+    transform: translateX(var(--sway, 14px)) rotate(var(--ember-twist, 12deg));
+  }
+  50% {
+    transform: translateX(calc(var(--sway, 14px) * -0.4)) rotate(calc(var(--ember-twist, 12deg) * -0.35));
+  }
+  66% {
+    transform: translateX(calc(var(--sway, 14px) * -0.95)) rotate(calc(var(--ember-twist, 12deg) * -0.7));
+  }
+  83% {
+    transform: translateX(calc(var(--sway, 14px) * 0.35)) rotate(calc(var(--ember-twist, 12deg) * 0.5));
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--sway, 14px))) rotate(calc(-1 * var(--ember-twist, 12deg)));
+  }
+}
+
+.ambient-particles-layer {
+  mix-blend-mode: screen;
+  opacity: 0.78;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-particles-layer {
+    display: none !important;
+  }
 }
