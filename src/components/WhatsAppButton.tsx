@@ -21,7 +21,7 @@ export function WhatsAppButton() {
       transition={{ delay: 1, type: 'spring', stiffness: 200 }}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
-      className="hidden md:flex fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#f5c542] items-center justify-center shadow-2xl border-2 border-[#0a0a0a]/25 animate-whatsapp-pulse"
+      className="flex fixed z-40 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#f5c542] items-center justify-center shadow-2xl border-2 border-[#0a0a0a]/25 animate-whatsapp-pulse bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4 sm:bottom-6 sm:right-6"
       aria-label={`WhatsApp ${CONFIG.whatsappDisplay}`}
     >
       <WhatsAppIcon />

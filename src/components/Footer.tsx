@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer
       id="ubicacion"
-      className="bg-gradient-to-b from-[#3a1216] to-[#2a0c10] border-t border-[#b91c1c]/40 pt-10 pb-24 md:pb-16"
+      className="bg-gradient-to-b from-[#3a1216] to-[#2a0c10] border-t border-[#b91c1c]/40 pt-10 pb-20 md:pb-16"
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 md:gap-10 mb-8">
