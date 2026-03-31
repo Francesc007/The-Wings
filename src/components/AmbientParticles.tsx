@@ -47,21 +47,22 @@ function makeParticles(count: number): Particle[] {
     const r4 = ((t * 61) % 1000) / 1000
     const r5 = ((t * 73) % 1000) / 1000
     const r6 = ((t * 89) % 1000) / 1000
-    const duration = 12 + r3 * 18
+    /** Ascenso más lento (≈18–40 s) */
+    const duration = 18 + r3 * 22
     const lineW = 2 + r4 * 5.5
     /** Alto máximo 15 px */
     const lineH = 4 + r6 * 8.5
     return {
       id: i,
       left: r1 * 100,
-      delay: r2 * 11,
+      delay: r2 * 14,
       duration,
       lineW,
       lineH,
       drift: (r2 - 0.5) * 80,
       palette: (i % 3) as 0 | 1 | 2,
       sway: 10 + r4 * 20,
-      swayPeriod: duration * (0.28 + r5 * 0.22),
+      swayPeriod: duration * (0.32 + r5 * 0.24),
       twist: 8 + r1 * 14,
       clipPath: EMBER_SHAPES[i % EMBER_SHAPES.length],
     }
@@ -73,7 +74,7 @@ type Props = {
 }
 
 export function AmbientParticles({ embedded = false }: Props) {
-  const count = embedded ? 22 : 36
+  const count = embedded ? 12 : 24
   const particles = useMemo(() => makeParticles(count), [count])
 
   const wrapClass = embedded
