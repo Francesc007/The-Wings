@@ -48,9 +48,9 @@ function makeParticles(count: number): Particle[] {
     const r5 = ((t * 73) % 1000) / 1000
     const r6 = ((t * 89) % 1000) / 1000
     const duration = 12 + r3 * 18
-    const lineW = 2 + r4 * 7
+    const lineW = 2 + r4 * 5.5
     /** Alto máximo 15 px */
-    const lineH = 5 + r6 * 9
+    const lineH = 4 + r6 * 8.5
     return {
       id: i,
       left: r1 * 100,
