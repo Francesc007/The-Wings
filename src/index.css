@@ -125,28 +125,43 @@ body::after {
   }
 }
 
-/* Ondulación horizontal + giro suave (viento) */
+/*
+ * Vaivén tipo onda (aprox. seno): curva continua, menos “robótico”.
+ * Timing linear: la suavidad viene de los pasos intermedios.
+ */
 @keyframes ember-wind {
   0% {
-    transform: translateX(calc(-1 * var(--sway, 14px))) rotate(calc(-1 * var(--ember-twist, 12deg)));
+    transform: translateX(calc(-1 * var(--sway, 14px))) translateY(0)
+      rotate(calc(-1 * var(--ember-twist, 12deg)));
   }
-  16% {
-    transform: translateX(calc(var(--sway, 14px) * 0.55)) rotate(calc(var(--ember-twist, 12deg) * 0.45));
+  12.5% {
+    transform: translateX(calc(-0.707 * var(--sway, 14px))) translateY(-0.4px)
+      rotate(calc(-0.707 * var(--ember-twist, 12deg)));
   }
-  33% {
-    transform: translateX(var(--sway, 14px)) rotate(var(--ember-twist, 12deg));
+  25% {
+    transform: translateX(0) translateY(0.6px) rotate(0deg);
+  }
+  37.5% {
+    transform: translateX(calc(0.707 * var(--sway, 14px))) translateY(-0.3px)
+      rotate(calc(0.707 * var(--ember-twist, 12deg)));
   }
   50% {
-    transform: translateX(calc(var(--sway, 14px) * -0.4)) rotate(calc(var(--ember-twist, 12deg) * -0.35));
+    transform: translateX(var(--sway, 14px)) translateY(0) rotate(var(--ember-twist, 12deg));
   }
-  66% {
-    transform: translateX(calc(var(--sway, 14px) * -0.95)) rotate(calc(var(--ember-twist, 12deg) * -0.7));
+  62.5% {
+    transform: translateX(calc(0.707 * var(--sway, 14px))) translateY(0.5px)
+      rotate(calc(0.707 * var(--ember-twist, 12deg)));
   }
-  83% {
-    transform: translateX(calc(var(--sway, 14px) * 0.35)) rotate(calc(var(--ember-twist, 12deg) * 0.5));
+  75% {
+    transform: translateX(0) translateY(-0.5px) rotate(0deg);
+  }
+  87.5% {
+    transform: translateX(calc(-0.707 * var(--sway, 14px))) translateY(0.35px)
+      rotate(calc(-0.707 * var(--ember-twist, 12deg)));
   }
   100% {
-    transform: translateX(calc(-1 * var(--sway, 14px))) rotate(calc(-1 * var(--ember-twist, 12deg)));
+    transform: translateX(calc(-1 * var(--sway, 14px))) translateY(0)
+      rotate(calc(-1 * var(--ember-twist, 12deg)));
   }
 }
 
